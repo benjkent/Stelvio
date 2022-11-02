@@ -1,4 +1,4 @@
-window.addEventListener('load',eventAssetsLoaded,false);
+//window.addEventListener('load',eventAssetsLoaded,false);
 
 var outputText = document.getElementById('positionOutput');
 var startStopButton = document.getElementById("startStopAnimation");
@@ -10,6 +10,7 @@ var context = theCanvas.getContext("2d");
 var canvasWidth = theCanvas.width;
 var canvasHeight = theCanvas.height;
 var isDrawing = false;
+var timer;
 
 var curve = function(attenuation,lineWidth,opacity){
     this.attenuation = attenuation;
@@ -24,18 +25,20 @@ curves.push(new curve(-2, 1, 0.6));
 curves.push(new curve(2, 1, 0.6));
 curves.push(new curve(-6, 1, 0.2));
 curves.push(new curve(4, 1, 0.4 ));
-
-function eventAssetsLoaded(){
-    isAnimating(isDrawing)
-    canvasApp();
-}
+// Use this to auto play animation when page is loaded
+// function eventAssetsLoaded(){
+    
+//     canvasApp();
+// }
+// Event listener for start-stop button
 function isAnimating(){
     if(isDrawing == false){
         startStopButton.textContent ="start";
+        canvasApp();
     }
     else{
         startStopButton.textContent ="stop";
-
+        clearInterval(timer);
     }
     isDrawing = !isDrawing;
 }
@@ -49,29 +52,30 @@ function canvasApp(){
     var phase = 0;
     var heightMax = (height / 2) - 6;
     var amplitude = 1;   // Use amplitude to reduce to zero for start and stop.
-
     var frequency = 6;
     var GRAPH_X = 2;
 
+        
     function drawScreen(){
         
-        phase = (phase + (Math.PI / 2) * speed) % (2 * Math.PI);
-        
+         phase = (phase + (Math.PI / 2) * speed) % (2 * Math.PI);
+                
         // Define the canvas background
         context.fillStyle = "#021a35";
         context.fillRect(0,0,theCanvas.width,theCanvas.height);
         // Box outline
         context.strokeStyle = "#ffffff";
         context.strokeRect(1,1,theCanvas.width -2,theCanvas.height -2);
-
+                
         // draw all the waves
         for(var i = 0; i < curves.length; i++){
-            drawWave(curves[i].attenuation, curves[i].lineWidth,curves[i].color);
+                drawWave(curves[i].attenuation, curves[i].lineWidth,curves[i].color);
         }
+                
         // USE for DEBUGGING ANY values
-        //outputText.innerText = ("Phase: "+ Math.round(phase * 100) / 100);
-       
+        //outputText.innerText = ("Phase: "+ Math.round(phase * 100) / 100);       
     }
+
     // Does all the canvas drawing for each wave
     function drawWave(waveAttenuation, waveThickness, waveColor){
         context.beginPath();
@@ -103,8 +107,6 @@ function canvasApp(){
         return (p + (Math.PI / 2) * speed) % (2 * Math.PI);
     }
     
-    setInterval(drawScreen,33);
-    
-    
+    timer = setInterval(drawScreen,33); 
 }
 
