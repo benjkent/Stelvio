@@ -1,4 +1,4 @@
-//window.addEventListener('load',eventAssetsLoaded,false);
+window.addEventListener('load',eventAssetsLoaded,false);
 
 var outputText = document.getElementById('positionOutput');
 var startStopButton = document.getElementById("startStopAnimation");
@@ -27,10 +27,18 @@ curves.push(new curve(2, 1, 0.6));
 curves.push(new curve(-6, 1, 0.2));
 curves.push(new curve(4, 1, 0.4 ));
 // Use this to auto play animation when page is loaded
-//  function eventAssetsLoaded(){
-//     canvasApp();
-//  }
-
+ function eventAssetsLoaded(){
+    drawCanvasReadyState();
+ }
+function drawCanvasReadyState(){
+    // Define the canvas background
+    context.fillStyle = "#021a35";
+    context.fillRect(0,0,theCanvas.width,theCanvas.height);
+    // Box outline
+    context.strokeStyle = "#ffffff";
+    context.strokeRect(1,1,theCanvas.width -2,theCanvas.height -2);
+    
+}
 // Event listener for start-stop button
 function startStopClick(){
     if(isDrawing == false){
@@ -41,6 +49,7 @@ function startStopClick(){
         startStopButton.textContent ="Start";
         clearInterval(timer);
         context.clearRect(0,0,canvasWidth,canvasHeight);
+        drawCanvasReadyState();
     }
     isDrawing = !isDrawing;
 }
