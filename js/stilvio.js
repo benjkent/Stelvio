@@ -1,12 +1,15 @@
 window.addEventListener('load',eventAssetsLoaded,false);
+
 var outputText = document.getElementById('positionOutput');
 var startStopButton = document.getElementById("startStopAnimation");
-
+startStopButton.addEventListener('click',isAnimating);
 
 var pixels = window.devicePixelRatio;
 var theCanvas = document.getElementById("canvasOne");
+var context = theCanvas.getContext("2d");
 var canvasWidth = theCanvas.width;
 var canvasHeight = theCanvas.height;
+var isDrawing = false;
 
 var curve = function(attenuation,lineWidth,opacity){
     this.attenuation = attenuation;
@@ -23,12 +26,21 @@ curves.push(new curve(-6, 1, 0.2));
 curves.push(new curve(4, 1, 0.4 ));
 
 function eventAssetsLoaded(){
+    isAnimating(isDrawing)
     canvasApp();
+}
+function isAnimating(){
+    if(isDrawing == false){
+        startStopButton.textContent ="start";
+    }
+    else{
+        startStopButton.textContent ="stop";
+
+    }
+    isDrawing = !isDrawing;
 }
 function canvasApp(){
    
-    context = theCanvas.getContext("2d");
-
     var speed = 0.1;
     var ATT_FACTOR = 4;
     var Amplitude_Factor = 0.6;
@@ -37,6 +49,7 @@ function canvasApp(){
     var phase = 0;
     var heightMax = (height / 2) - 6;
     var amplitude = 1;   // Use amplitude to reduce to zero for start and stop.
+
     var frequency = 6;
     var GRAPH_X = 2;
 
@@ -56,8 +69,8 @@ function canvasApp(){
             drawWave(curves[i].attenuation, curves[i].lineWidth,curves[i].color);
         }
         // USE for DEBUGGING ANY values
-        outputText.innerText = ("Phase: "+ Math.round(phase * 100) / 100);
-        
+        //outputText.innerText = ("Phase: "+ Math.round(phase * 100) / 100);
+       
     }
     // Does all the canvas drawing for each wave
     function drawWave(waveAttenuation, waveThickness, waveColor){
