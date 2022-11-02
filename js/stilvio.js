@@ -2,13 +2,14 @@
 
 var outputText = document.getElementById('positionOutput');
 var startStopButton = document.getElementById("startStopAnimation");
-startStopButton.addEventListener('click',isAnimating);
+startStopButton.addEventListener('click',startStopClick);
 
 var pixels = window.devicePixelRatio;
 var theCanvas = document.getElementById("canvasOne");
 var context = theCanvas.getContext("2d");
 var canvasWidth = theCanvas.width;
 var canvasHeight = theCanvas.height;
+
 var isDrawing = false;
 var timer;
 
@@ -26,19 +27,20 @@ curves.push(new curve(2, 1, 0.6));
 curves.push(new curve(-6, 1, 0.2));
 curves.push(new curve(4, 1, 0.4 ));
 // Use this to auto play animation when page is loaded
-// function eventAssetsLoaded(){
-    
+//  function eventAssetsLoaded(){
 //     canvasApp();
-// }
+//  }
+
 // Event listener for start-stop button
-function isAnimating(){
+function startStopClick(){
     if(isDrawing == false){
-        startStopButton.textContent ="start";
+        startStopButton.textContent ="Stop";
         canvasApp();
     }
     else{
-        startStopButton.textContent ="stop";
+        startStopButton.textContent ="Start";
         clearInterval(timer);
+        context.clearRect(0,0,canvasWidth,canvasHeight);
     }
     isDrawing = !isDrawing;
 }
