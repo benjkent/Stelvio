@@ -8,3 +8,8 @@
 ### The goal of this project was to create a visualization - that could be packaged into a .net Blazor component.
 ### The visualization may provide a subtle enhancment to the play state of a custom audio element. 
 ### This repo represents the first step in that process.
+
+##### Stelvio Ready State
+![Stelvio Ready State](/images/stelvioReadyState.png)
+##### Stelvio Active State
+![Stelvio Active State](/images/stelvioActiveState.png)
