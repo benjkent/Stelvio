@@ -38,11 +38,20 @@ function drawCanvasReadyState(){
     context.strokeStyle = "#ffffff";
     context.strokeRect(1,1,theCanvas.width -2,theCanvas.height -2);
     // Solid line down middle of canvas to represent the animation at a ready or rest state
-    context.beginPath();
-    context.moveTo(canvasWidth-canvasWidth, canvasHeight / 2);
-    context.lineTo(canvasWidth, canvasHeight / 2);
-    context.strokeStyle = curves[0].color;
-    context.stroke();
+    
+        context.beginPath();
+        context.moveTo(canvasWidth-canvasWidth  , (canvasHeight / 2) );
+        context.lineTo(canvasWidth , (canvasHeight / 2) );
+        context.strokeStyle = curves[0].color;
+        context.stroke();
+        context.beginPath();
+        
+        context.arc(canvasWidth/2,canvasHeight/2 + 10,30,0,2*Math.PI,false);
+        context.fillStyle = "#021a35";
+        context.fill();
+        context.lineWidth = 1;
+        context.strokeStyle =curves[0].color;
+        context.stroke();
 }
 // Event listener for start-stop button
 function startStopClick(){
