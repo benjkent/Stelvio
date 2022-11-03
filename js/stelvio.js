@@ -37,7 +37,12 @@ function drawCanvasReadyState(){
     // Box outline
     context.strokeStyle = "#ffffff";
     context.strokeRect(1,1,theCanvas.width -2,theCanvas.height -2);
-    
+    // Solid line down middle of canvas to represent the animation at a ready or rest state
+    context.beginPath();
+    context.moveTo(canvasWidth-canvasWidth, canvasHeight / 2);
+    context.lineTo(canvasWidth, canvasHeight / 2);
+    context.strokeStyle = curves[0].color;
+    context.stroke();
 }
 // Event listener for start-stop button
 function startStopClick(){
@@ -68,7 +73,6 @@ function canvasApp(){
 
         
     function drawScreen(){
-        
          phase = (phase + (Math.PI / 2) * speed) % (2 * Math.PI);
                 
         // Define the canvas background
